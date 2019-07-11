@@ -538,7 +538,7 @@
       {
         if ($r["role"] == "Orchestra")
         {
-          $return[($i ? 0 : 1)]["role"] = "Conductor";
+          if ($return[($i ? 0 : 1)]["role"] != "Orchestra" && $return[($i ? 0 : 1)]["role"] != "Ensemble" && $return[($i ? 0 : 1)]["role"] != "Choir") $return[($i ? 0 : 1)]["role"] = "Conductor";
         }
       }
     }
