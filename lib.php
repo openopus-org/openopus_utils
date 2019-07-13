@@ -290,6 +290,26 @@
     return $result;
   }
 
+  // renaming a key from an array
+
+  function arrayrenamekey ($array, $oldkey, $newkey)
+  {
+    $i = 0;
+
+    foreach ($array as $ar)
+    {
+      foreach ($ar as $key => $value)
+      {
+        if ($key == $oldkey) $result[$i][$newkey] = $value;
+        else $result[$i][$key] = $value;
+      }
+      
+      ++$i;
+    }
+
+    return $result;
+  }
+
   // keeping only certain keys but in value-only format
 
   function arraykeepvalues ($array, $keys)
