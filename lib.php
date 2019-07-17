@@ -403,9 +403,9 @@
 
   function worksimplifier ($name, $fullname = false)
   { 
-    $name = strtolower ($name);
+    $name = strtolower (preg_replace ('/^(the|le|der|das|die|il|lo) /i', ' ', $name));
 
-    if ($fullname) 
+    if ($fullname)
     { 
       $pattern = '/(\,|\(|\'|\"|\-|\;)/i';
       $stepone = preg_replace ($pattern, ' ', $name);
