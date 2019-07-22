@@ -401,14 +401,22 @@
 
   // create a searchable and comparable string for a given work title
 
-  function worksimplifier ($name)
+  function worksimplifier ($name, $fulltitle = false)
   { 
     $name = strtolower (preg_replace ('/^(the|le|der|das|die|il|lo) /i', ' ', str_replace ("'", " ", $name)));
 
-    $pattern = '/(\,|\(|\"|\-|\;).*/i';
-    $stepone = preg_replace ($pattern, '', $name);
-    $pattern = '/ in .\b( (minor|major|sharp major|sharp minor|flat major|flat minor|flat|sharp))?/i';
-    return trim (preg_replace ($pattern, '', $stepone));
+    if ($fulltitle) 
+    {
+      $pattern = '/(\,|\(|\"|\-|\;).*/i';
+      return trim (preg_replace ($pattern, '', $name));
+    }
+    else
+    {
+      $pattern = '/(\,|\(|\"|\-|\;).*/i';
+      $stepone = preg_replace ($pattern, '', $name);
+      $pattern = '/ in .\b( (minor|major|sharp major|sharp minor|flat major|flat minor|flat|sharp))?/i';
+      return trim (preg_replace ($pattern, '', $stepone));
+    }
   }
 
   // identity check
