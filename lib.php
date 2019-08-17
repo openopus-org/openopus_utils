@@ -479,11 +479,18 @@
     global $mysql;
 
     $return = [];
-    $playlists = mysqlfetch ($mysql, "select id, name, playlist.user_id as owner from playlist, user_playlist where user_playlist.user_id='{$uid}' and playlist_id=id order by name asc");
+    $playlists = mysqlfetch ($mysql, "select id, name, playlist.user_id as owner, playlist_recording.work_id as work_id from playlist, user_playlist, playlist_recording where user_playlist.user_id='{$uid}' and user_playlist.playlist_id=id and playlist_recording.playlist_id=id order by name asc, playlist.id asc");
     
     foreach ($playlists as $playlist)
     {
-      $return[] = ["id"=>$playlist["id"],"name"=>$playlist["name"],"owner"=>$playlist["owner"]];
+      if (!$newplaylists["p:". $playlist["id"]]) $newplaylists["p:". $playlist["id"]] = $playlist;
+      $newplaylists["p:". $playlist["id"]]["works"][] = $playlist["work_id"];
+    }
+
+    foreach ($newplaylists as $playlist)
+    {
+      $obworks = openopusdownparse ("work/list//ids/". implode (",", $playlist["works"]). ".json");
+      $return[] = ["id"=>$playlist["id"],"name"=>$playlist["name"],"owner"=>$playlist["owner"],"summary"=>$obworks["abstract"]];
     }
 
     return $return;
