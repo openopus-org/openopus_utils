@@ -569,41 +569,9 @@
       }
     }
 
-    // ensembles, choirs, orchestras and conductors should end the array
+    // ordering the performers
 
-    foreach ($return as $ii => $rr)
-    {
-      if ($rr["role"] == "Orchestra")
-      {
-        $or[] = $rr;
-        unset ($return[$ii]);
-      }
-      elseif ($rr["role"] == "Ensemble" || $rr["role"] == "Choir")
-      {
-        $er[] = $rr;
-        unset ($return[$ii]);
-      }
-      elseif ($rr["role"] == "Conductor")
-      {
-        $cr[] = $rr;
-        unset ($return[$ii]);
-      }
-    }
-
-    if (sizeof ($er))
-    {
-      $return = array_merge ($return, $er);
-    }
-
-    if (sizeof ($or))
-    {
-      $return = array_merge ($return, $or);
-    }
-
-    if (sizeof ($cr))
-    {
-      $return = array_merge ($return, $cr);
-    }
+    $return = orderperformers ($return);
 
     if (sizeof ($return) == 1)
     {
@@ -611,4 +579,32 @@
     }
 
     return $return;
+  }
+
+  function orderperformers ($pfs) 
+  {
+    foreach ($pfs as $pfr)
+    {
+      switch ($pfr["role"])
+      {
+        case "Conductor":
+          $pfs_last[] = $pfr;
+        break;
+
+        case "Orchestra":
+          $pfs_prelast[] = $pfr;
+        break;
+
+        case "Ensemble":
+        case "Choir":
+        case "Chorus":
+          $pfs_middle[] = $pfr;
+        break;
+
+        default:
+          $pfs_first[] = $pfr;
+      }
+    }
+
+    return array_merge ((array)$pfs_first, (array)$pfs_middle, (array)$pfs_prelast, (array)$pfs_last);
   }
