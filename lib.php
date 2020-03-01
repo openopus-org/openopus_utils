@@ -116,9 +116,9 @@
 
   // api retrieving
 
-  function apidownparse ($url, $format, $token)
+  function apidownparse ($url, $format, $token, $usertoken = "")
   {
-    $api = CURL_Internals ($url, false, false, false, $token);
+    $api = CURL_Internals ($url, false, false, false, $token, $usertoken);
 
     if ($format == "json")
     {
@@ -145,7 +145,7 @@
 
   // basic curl retrieving
 
-  function CURL_Internals ($url, $bust = true, $plusheader, $pluspost, $token)
+  function CURL_Internals ($url, $bust = true, $plusheader, $pluspost, $token, $usertoken = "")
   {
     $ts = time ();
     $ch = curl_init ();
@@ -171,7 +171,12 @@
     }
     else if ($token)
     {
-      $header[] = 'Authorization: Bearer '.$token;
+      $header[] = 'Authorization: Bearer '. $token;
+
+      if ($usertoken)
+      {
+          $header[] = 'music-user-token: '. $usertoken;
+      }
     }
 
     if ($bust)
