@@ -479,6 +479,21 @@
     return $return;
   }
 
+  function workcomposerlist ($uid)
+  {
+    global $mysql;
+
+    $return = [];
+    $works = mysqlfetch ($mysql, "select distinct composer_id from user_work where user_id='{$uid}' and favorite = 1");
+    
+    foreach ($works as $work)
+    {
+      $return[] = $work["composer_id"];
+    }
+
+    return $return;
+  }
+
   function playlists ($uid)
   {
     global $mysql;
