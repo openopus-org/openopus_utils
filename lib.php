@@ -634,12 +634,14 @@
 
   function in_string ($search, $string)
   {
+    $string = str_replace (" ", "+", "+". $string);
+
     foreach (explode (" ", $search) as $word)
     {
-      if (stripos ($string, $word) === false)
+      if (stripos ($string, "+". $word) === false)
       {
         return false;
-      } 
+      }
     }
 
     return true;
