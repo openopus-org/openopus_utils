@@ -560,7 +560,6 @@
     return ($return);
   }
 
-
   // return an array of performers along with their guessed roles
 
   function allperformers ($array, $rldb, $composer)
@@ -601,6 +600,8 @@
     return $return;
   }
 
+  // order the performers in the soloist-choir-ensemble-orchestra-condutor order
+
   function orderperformers ($pfs) 
   {
     foreach ($pfs as $pfr)
@@ -627,4 +628,19 @@
     }
 
     return array_merge ((array)$pfs_first, (array)$pfs_middle, (array)$pfs_prelast, (array)$pfs_last);
+  }
+
+  // checks if all terms of a search are in a string
+
+  function in_string ($search, $string)
+  {
+    foreach (explode (" ", $search) as $word)
+    {
+      if (stripos ($string, $word) === false)
+      {
+        return false;
+      } 
+    }
+
+    return true;
   }
