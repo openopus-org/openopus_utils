@@ -541,7 +541,7 @@
     {
       foreach ($apireturn["recordings"] as $key => $rec)
       {
-        if ($rec["singletrack"] == "true" && $ratio < MIN_COMPIL_RATIO)
+        if ($rec["singletrack"] == "true" && /*($ratio < MIN_COMPIL_RATIO || */ any_string (COMPILATION_TERMS, $rec["album_name"]))
         {
           $apireturn["recordings"][$key]["compilation"] = "true";
         } 
@@ -648,4 +648,21 @@
     }
 
     return true;
+  }
+
+  // checks if any term of a search are in a string
+
+  function any_string ($search, $string)
+  {
+    $string = str_replace (" ", "+", "+". $string);
+
+    foreach (explode (" ", $search) as $word)
+    {
+      if (stripos ($string, "+". $word) !== false)
+      {
+        return true;
+      }
+    }
+
+    return false;
   }
