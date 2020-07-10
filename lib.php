@@ -429,7 +429,7 @@
   function simpleauth ($mysql, $id, $hash)
   {
     $auth = mysqlfetch ($mysql, "select auth from user where id = '{$id}'");
-    
+
     if (!$auth)
     {
         return false;
@@ -499,17 +499,37 @@
     global $mysql;
 
     $return = [];
-    $playlists = mysqlfetch ($mysql, "select id, name, playlist.user_id as owner, playlist_recording.work_id as work_id from playlist, user_playlist, playlist_recording where user_playlist.user_id='{$uid}' and user_playlist.playlist_id=id and playlist_recording.playlist_id=id order by name asc, playlist.id asc");
+    $playlists = mysqlfetch ($mysql, "select id, name, playlist.user_id as owner, playlist_recording.work_id as work_id, recording.composer_name as composer_name, recording.work_title as work_title from playlist, user_playlist, playlist_recording, recording where recording.work_id = playlist_recording.work_id and recording.apple_albumid = playlist_recording.apple_albumid and recording.subset = playlist_recording.subset and user_playlist.user_id='{$uid}' and user_playlist.playlist_id=id and playlist_recording.playlist_id=id order by name asc, playlist.id asc");
     
     foreach ($playlists as $playlist)
     {
       if (!$newplaylists["p:". $playlist["id"]]) $newplaylists["p:". $playlist["id"]] = $playlist;
-      $newplaylists["p:". $playlist["id"]]["works"][] = $playlist["work_id"];
+      if ($playlist["composer_name"])
+      {
+        $newplaylists["p:". $playlist["id"]]["composers"][] = end (explode (" ", $playlist["composer_name"]));
+      }
+      else
+      {
+        $newplaylists["p:". $playlist["id"]]["works"][] = $playlist["work_id"];
+      }
     }
 
     foreach ($newplaylists as $playlist)
     {
-      $obworks = openopusdownparse ("work/list//ids/". implode (",", $playlist["works"]). ".json");
+      $obworks = [];
+
+      if (sizeof ($playlist["works"])) $obworks = openopusdownparse ("work/list/ids/". implode (",", $playlist["works"]). ".json");
+      
+      foreach ($playlist["composers"] as $comp)
+      {
+        if (!in_array ($comp, $obworks["abstract"]))
+        {
+          $obworks["abstract"]["composers"]["portraits"][] = OPENOPUS_DEFCOMP;
+          $obworks["abstract"]["composers"]["names"][] = $comp;
+          $obworks["abstract"]["works"]["rows"] += 1;
+        }
+      }
+
       $return[] = ["id"=>$playlist["id"],"name"=>$playlist["name"],"owner"=>$playlist["owner"],"summary"=>$obworks["abstract"]];
     }
 
