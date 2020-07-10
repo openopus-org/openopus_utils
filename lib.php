@@ -530,6 +530,7 @@
         }
       }
 
+      $obworks["abstract"]["composers"]["rows"] = sizeof ($obworks["abstract"]["composers"]["names"]);
       $return[] = ["id"=>$playlist["id"],"name"=>$playlist["name"],"owner"=>$playlist["owner"],"summary"=>$obworks["abstract"]];
     }
 
