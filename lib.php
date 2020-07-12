@@ -658,11 +658,9 @@
 
   function in_string ($search, $string)
   {
-    $string = str_replace (" ", "+", "+". $string);
-
     foreach (explode (" ", $search) as $word)
     {
-      if (stripos ($string, "+". $word) === false)
+      if (stripos (slug ($string), "-". slug ($word)) === false)
       {
         return false;
       }
@@ -675,11 +673,9 @@
 
   function any_string ($search, $string)
   {
-    $string = str_replace (" ", "+", "+". $string);
-
     foreach (explode (" ", $search) as $word)
     {
-      if (stripos ($string, "+". $word) !== false)
+      if (stripos (slug ($string), "-". slug ($word)) !== false)
       {
         return true;
       }
