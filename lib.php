@@ -660,7 +660,7 @@
   {
     foreach (explode (" ", $search) as $word)
     {
-      if (stripos (slug ($string), "-". slug ($word)) === false)
+      if (stripos ("--". slug ($string), "-". slug ($word)) === false)
       {
         return false;
       }
@@ -675,7 +675,7 @@
   {
     foreach (explode (" ", $search) as $word)
     {
-      if (stripos (slug ($string), "-". slug ($word)) !== false)
+      if (stripos ("--". slug ($string), "-". slug ($word)) !== false)
       {
         return true;
       }
