@@ -417,7 +417,7 @@
     }
     else
     {
-      $pattern = '/\/|(\,|\(|\"|\-|\;).*/i';
+      $pattern = '/(\/|\,|\(|\"|\-|\;).*/i';
       $stepone = preg_replace ($pattern, '', $name);
       $pattern = '/ in .\b( (minor|major|sharp major|sharp minor|flat major|flat minor|flat|sharp))?/i';
       return trim (preg_replace ($pattern, '', $stepone));
