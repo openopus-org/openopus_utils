@@ -695,7 +695,19 @@
 
     if (sizeof ($titlecatcheck[0]))
     {
-      return slug (end($titlecatcheck[2]). " ". end($titlecatcheck[8]));
+      $worksearch = end($titlecatcheck[2]). " ". end($titlecatcheck[8]);
+
+      if (strtolower (end($titlecatcheck[2])) == "op" || strtolower (end($titlecatcheck[2])) == "opus")
+      {
+        preg_match_all ('/(no\.)( )*([0-9]*)/i', $work_title, $opmatches);
+        
+        if (sizeof ($opmatches[0]))
+        {
+          $worksearch .= " ". end ($opmatches[0]);
+        }
+      }
+
+      return slug ($worksearch);
     }
     else 
     {
