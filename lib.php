@@ -652,19 +652,15 @@
       }
     }
 
-    print_r (["original array", $pfs_last]);
-
     if (sizeof ($pfs_last) > 1)
     {
       // put additional conductors together with choirs
 
-      $pfs_reallylast = array_pop ($pfs_last);
+      $pfs_reallylast = [array_pop ($pfs_last)];
 
       $pfs_middle = array_merge ((array)$pfs_middle, (array)$pfs_last);
       $pfs_last = $pfs_reallylast;
     }
-
-    print_r (["changed arrays", $pfs_first, $pfs_middle, $pfs_prelast, $pfs_last]);
 
     return array_merge ((array)$pfs_first, (array)$pfs_middle, (array)$pfs_prelast, (array)$pfs_last);
   }
