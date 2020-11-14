@@ -652,6 +652,8 @@
       }
     }
 
+    print_r ($pfs_last);
+
     if (sizeof ($pfs_last) > 1)
     {
       // put additional conductors together with choirs
