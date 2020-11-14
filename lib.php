@@ -652,7 +652,7 @@
       }
     }
 
-    print_r (["original array", $pfs_last);
+    print_r (["original array", $pfs_last]);
 
     if (sizeof ($pfs_last) > 1)
     {
