@@ -652,6 +652,16 @@
       }
     }
 
+    if (sizeof ($pfs_last) > 1)
+    {
+      // put additional conductors together with choirs
+
+      $pfs_reallylast = array_pop ($pfs_last);
+
+      $pfs_middle = array_merge ((array)$pfs_middle, (array)$pfs_last);
+      $pfs_last = $pfs_reallylast;
+    }
+
     return array_merge ((array)$pfs_first, (array)$pfs_middle, (array)$pfs_prelast, (array)$pfs_last);
   }
 
