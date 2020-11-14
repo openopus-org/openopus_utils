@@ -652,6 +652,7 @@
       }
     }
 
+    /*
     print_r ($pfs_last);
 
     if (sizeof ($pfs_last) > 1)
@@ -665,7 +666,8 @@
     }
 
     print_r ([$pfs_first, $pfs_middle, $pfs_prelast, $pfs_last]);
-
+    */
+    
     return array_merge ((array)$pfs_first, (array)$pfs_middle, (array)$pfs_prelast, (array)$pfs_last);
   }
 
