@@ -656,9 +656,9 @@
     {
       // put additional conductors together with choirs
 
-      $pfs_reallylast = array_pop ($pfs_last);
+      $pfs_reallylast = array_values (array_pop ($pfs_last));
 
-      $pfs_middle = array_values (array_merge ((array)$pfs_middle, (array)$pfs_last));
+      $pfs_middle = array_merge ((array)$pfs_middle, (array)$pfs_last);
       $pfs_last = $pfs_reallylast;
     }
 
