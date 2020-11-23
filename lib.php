@@ -625,7 +625,7 @@
     return $return;
   }
 
-  // order the performers in the soloist-choir-ensemble-orchestra-condutor order
+  // order the performers in the soloist-choir-ensemble-orchestra-conductor order
 
   function orderperformers ($pfs) 
   {
@@ -660,6 +660,30 @@
 
       $pfs_middle = array_merge ((array)$pfs_middle, (array)$pfs_last);
       $pfs_last = $pfs_reallylast;
+    }
+
+    if (sizeof ($pfs_prelast) > 1)
+    {
+      // eliminates additional orchestras
+
+      foreach ($pfs_prelast as $orch)
+      {
+        if (stristr ($orch["name"], "orchestra"))
+        {
+          $pfs_filtorch[] = $orch;
+        }
+      }
+
+      if (sizeof ($pfs_filtorch) > 1)
+      {
+        $lengths = array_map ('strlen', $pfs_filtorch);
+
+        $pfs_prelast = max ($pfs_filtorch);
+      }
+      else
+      {
+        $pfs_prelast = $pfs_filtorch;
+      }
     }
 
     return array_merge ((array)$pfs_first, (array)$pfs_middle, (array)$pfs_prelast, (array)$pfs_last);
