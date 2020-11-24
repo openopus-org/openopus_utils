@@ -678,7 +678,7 @@
       {
         $lengths = array_map ('strlen', $pfs_filtorch);
 
-        $pfs_prelast = max ($pfs_filtorch);
+        $pfs_prelast = [max ($pfs_filtorch)];
       }
       else
       {
