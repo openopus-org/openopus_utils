@@ -296,6 +296,21 @@
     return $result;
   }
 
+  // check if all items are present in multi-dimensional array
+
+  function arrayitems ($items, $key, $array)
+  {
+    foreach ($array as $ar)
+    {
+      if (in_array ($ar[$key], $items))
+      {
+        $found[$ar[$key]] = 1;
+      }
+    }
+
+    return (sizeof ($found) == sizeof ($items));
+  }
+
   // renaming a key from an array
 
   function arrayrenamekey ($array, $oldkey, $newkey)
