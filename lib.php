@@ -736,7 +736,7 @@
 
   // return catalogue number or title in slug, simplified format
 
-  define ("CATALOGUE_REGEX", "/( )*(twv|bwv|wwv|hwv|op|opus|cw|g|d|k|kv|hess|woo|fs|k\.anh|wq|w|sz|kk|s|h|rv|jb ([0-9]+\:)|jw ([a-z]+\/)|(hob\.([a-z])+\:))( |\.)*((([0-9]+)([a-z])?)(\:.+)?)/i");
+  define ("CATALOGUE_REGEX", "/( )*(twv|bwv|wwv|hwv|op|opus|cw|g|d|k|kv|hess|woo|fs|k\.anh|wq|w|sz|kk|s|h|rv|jb ([0-9]+\:)|jw ([a-z]+\/)|(hob\.( *[a-z])+\:))( |\.)*((([0-9]+)([a-z])?)(\:.+)?)/i");
 
   function workslug ($work_title)
   {
