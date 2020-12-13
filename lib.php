@@ -743,11 +743,7 @@
 
     return false;
   }
-
-  // return catalogue number or title in slug, simplified format
-
-  define ("CATALOGUE_REGEX", "/( )*(twv|bwv|wwv|hwv|op|opus|cw|g|d|k|kv|hess|woo|fs|k\.anh|wq|w|sz|kk|s|h|rv|jb ([0-9]+\:)|jw ([a-z]+\/)|(hob\.( *[a-z])+\:))( |\.)*((([0-9]+)([a-z])?)(\:.+)?)/i");
-
+  
   function workslug ($work_title)
   {
     preg_match_all (CATALOGUE_REGEX, $work_title, $titlecatcheck);
@@ -773,3 +769,14 @@
       return slug (worksimplifier ($work_title));
     }
   }
+
+  //// definitions
+
+  // return catalogue number or title in slug, simplified format
+
+  define ("CATALOGUE_REGEX", "/( )*(twv|bwv|wwv|hwv|op|opus|cw|g|d|k|kv|hess|woo|fs|k\.anh|wq|w|sz|kk|s|h|rv|jb ([0-9]+\:)|jw ([a-z]+\/)|(hob\.( *[a-z])+\:))( |\.)*((([0-9]+)([a-z])?)(\:.+)?)/i");
+
+  // likely trashy compilation albums
+
+  define ("COMPILATION_PERFORMERS", "guys rieu volo 2cellos divo");
+  define ("COMPILATION_TERMS", "clas clás klas clàs sleep rela babies kids mind lounge essen best dream power glory dinner study concentra dumm amaz focus spirit ". COMPILATION_PERFORMERS);
