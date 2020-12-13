@@ -779,4 +779,4 @@
   // likely trashy compilation albums
 
   define ("COMPILATION_PERFORMERS", "guys rieu volo 2cellos divo");
-  define ("COMPILATION_TERMS", "clas clás klas clàs sleep rela babies kids mind lounge essen best dream power glory dinner study concentra dumm amaz focus spirit mind forever mood color colour greatest masterpiece heart landscape magic ". COMPILATION_PERFORMERS);
+  define ("COMPILATION_TERMS", "clas clás klas clàs sleep rela babies kids mind lounge essen best dream power glory dinner study concentra dumm amazing focus spirit mind forever mood color colour greatest masterpiece heart landscape magic magnificent ". COMPILATION_PERFORMERS);
