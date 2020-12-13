@@ -564,7 +564,7 @@
 
   // absolves single track recordings if most recordings of a work is single track
 
-  function compilationdigest ($apireturn, $force = false)
+  function compilationdigest ($apireturn, $force = false, $strict = false)
   {
     $total = sizeof ($apireturn["recordings"]);
     $compilations = array_count_values (array_column ($apireturn["recordings"], "singletrack"))["true"];
@@ -578,10 +578,20 @@
     {
       foreach ($apireturn["recordings"] as $key => $rec)
       {
-        if ($rec["singletrack"] == "true" && /*($ratio < MIN_COMPIL_RATIO || */ any_string (COMPILATION_TERMS, $rec["album_name"]))
+        if ($strict)
         {
-          $apireturn["recordings"][$key]["compilation"] = "true";
-        } 
+          if ($rec["singletrack"] == "true" && ($ratio < MIN_COMPIL_RATIO || any_string (COMPILATION_TERMS, $rec["album_name"])))
+          {
+            $apireturn["recordings"][$key]["compilation"] = "true";
+          }
+        }
+        else
+        {
+          if ($rec["singletrack"] == "true" && any_string (COMPILATION_TERMS, $rec["album_name"]))
+          {
+            $apireturn["recordings"][$key]["compilation"] = "true";
+          } 
+        }
       }
     }
   
