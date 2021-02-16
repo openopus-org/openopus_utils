@@ -504,7 +504,7 @@
     
     foreach ($works as $work)
     {
-      $return[] = $work["composer_id"];
+      if ($work["composer_id"]) $return[] = $work["composer_id"];
     }
 
     return $return;
