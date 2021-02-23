@@ -770,6 +770,24 @@
     }
   }
 
+  function worktitle ($title, $composer)
+  {
+    $parts = explode (":", $title);
+    $composerln = slug (end (explode (" ", $composer)));
+
+    foreach ($parts as $k => $part)
+    {
+      if (slug ($part) == $composerln || slug ($part) == slug ($composer))
+      {
+        unset ($parts[$k]);
+      }
+    }
+
+    $nname = trim (preg_replace ('/^(( )*( |\,|\(|\'|\"|\-|\;|\:)( )*)/i', '', implode (":", $parts)));
+
+    return $nname;
+  }
+
   //// definitions
 
   // return catalogue number or title in slug, simplified format
