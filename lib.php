@@ -788,6 +788,53 @@
     return $nname;
   }
 
+  function urlcheck ($url)
+  {
+    $ch = curl_init ();
+
+    curl_setopt ($ch, CURLOPT_URL, $url);
+    curl_setopt ($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt ($ch, CURLOPT_NOBODY, true);
+    curl_setopt ($ch, CURLOPT_USERAGENT, USERAGENT);
+    curl_setopt ($ch, CURLOPT_TIMEOUT, 200);
+
+    $response = curl_exec ($ch); 
+    $httpCode = curl_getinfo ($ch, CURLINFO_HTTP_CODE);
+    
+    //print_r ([$url, $response, $httpCode, curl_getinfo ($ch), curl_error($ch)]);
+
+    curl_close ($ch);
+
+    if ($httpCode == 200)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  function allvalidonly ($urls)
+  {
+    if (!is_array ($urls)) 
+    {
+      return [];
+    }
+    else
+    {
+      foreach ($urls as $url)
+      {
+        if (!urlcheck ($url) || $url == "")
+        {
+          return [];
+        }
+      }
+  
+      return $urls;
+    }
+  }
+
   //// definitions
 
   // return catalogue number or title in slug, simplified format
