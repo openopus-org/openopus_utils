@@ -825,7 +825,15 @@
     {
       foreach ($urls as $url)
       {
-        if (!urlcheck ($url) || $url == "")
+        if (trim ($url) == "")
+        {
+          return [];
+        }
+      }
+
+      foreach ($urls as $url)
+      {
+        if (!urlcheck ($url))
         {
           return [];
         }
