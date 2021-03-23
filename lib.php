@@ -54,7 +54,7 @@
 
   function mysqlmultinsert ($mysql, $table, $lines)
   {
-    print_r ([$table, $lines]);
+    //print_r ([$table, $lines]);
     foreach ($lines as $line)
     {
       foreach ($line as $ini => $ins)
@@ -65,7 +65,7 @@
       $values[] = "('". implode ("','", $insert). "')";
     }
 
-    echo $query = "insert into {$table} (". implode (", ", array_keys ($lines[0])). ") values ". implode (", ", $values);
+    $query = "insert into {$table} (". implode (", ", array_keys ($lines[0])). ") values ". implode (", ", $values);
     $query = str_replace ("''", "null", $query);
     
     mysqli_query ($mysql, $query);
