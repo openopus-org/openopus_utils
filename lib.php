@@ -199,7 +199,7 @@
     curl_setopt ($ch, CURLOPT_ENCODING, '');
     curl_setopt ($ch, CURLOPT_TIMEOUT, 200);
     //curl_setopt ($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
-    curl_setopt ($ch, CURLOPT_VERBOSE, TRUE);
+    curl_setopt ($ch, CURLOPT_VERBOSE, FALSE);
     curl_setopt ($ch, CURLOPT_STDERR, $fp);
 
     if ($pluspost)
