@@ -844,6 +844,11 @@
     }
   }
 
+  function searcharray ($array, $key, $value)
+  {
+    return array_keys (array_combine (array_keys ($array), array_column ($array, $key)), $value)[0];
+  }
+
   //// definitions
 
   // return catalogue number or title in slug, simplified format
