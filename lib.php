@@ -65,7 +65,7 @@
       $values[] = "('". implode ("','", $insert). "')";
     }
 
-    $query = "insert into {$table} (". implode (", ", array_keys ($lines[0])). ") values ". implode (", ", $values);
+    $query = "insert ignore into {$table} (". implode (", ", array_keys ($lines[0])). ") values ". implode (", ", $values);
     $query = str_replace ("''", "null", $query);
     
     mysqli_query ($mysql, $query);
