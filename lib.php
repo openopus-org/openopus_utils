@@ -849,6 +849,30 @@
     return array_keys (array_combine (array_keys ($array), array_column ($array, $key)), $value)[0];
   }
 
+  function indentarray ($array, $keys, $newkey)
+  {
+    foreach ($array as $key => $ar)
+    {
+      foreach ($keys as $kv)
+      {
+        $array[$key][$newkey][$kv] = $ar[$kv];
+        unset ($array[$key][$kv]);
+      }
+    }
+
+    return $array;
+  }
+
+  function expandarray ($array, $key, $arrayexpansion)
+  {
+    foreach ($array as $k => $ar)
+    {
+      $array[$k][$key] = $arrayexpansion[searcharray ($arrayexpansion, "id", $array[$k][$key])];
+    }
+
+    return $array;
+  }
+
   //// definitions
 
   // return catalogue number or title in slug, simplified format
