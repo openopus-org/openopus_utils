@@ -863,11 +863,11 @@
     return $array;
   }
 
-  function expandarray ($array, $key, $arrayexpansion)
+  function expandarray ($array, $key, $id, $arrayexpansion)
   {
     foreach ($array as $k => $ar)
     {
-      $array[$k][$key] = $arrayexpansion[searcharray ($arrayexpansion, "id", $array[$k][$key])];
+      $array[$k][$key] = $arrayexpansion[searcharray ($arrayexpansion, $id, $array[$k][$key])];
     }
 
     return $array;
