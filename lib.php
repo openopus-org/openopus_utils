@@ -199,7 +199,7 @@
     curl_setopt ($ch, CURLOPT_ENCODING, '');
     curl_setopt ($ch, CURLOPT_TIMEOUT, 200);
     //curl_setopt ($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
-    curl_setopt ($ch, CURLOPT_VERBOSE, FALSE);
+    curl_setopt ($ch, CURLOPT_VERBOSE, false);
     curl_setopt ($ch, CURLOPT_STDERR, $fp);
 
     if ($pluspost)
@@ -871,6 +871,38 @@
     }
 
     return $array;
+  }
+
+  function mediadownload ($url, $folder, $filename, $rotate = false) 
+  {
+    $dirname = MEDIADIR. "/{$folder}";
+
+    if (!is_dir ($dirname))
+    {
+      mkdir ($dirname, 0777, true);
+    }
+
+    if (file_put_contents ("{$dirname}/{$filename}", file_get_contents ($url)))
+    {
+      if ($rotate)
+      {
+        $img = imagecreatefromjpeg ("{$dirname}/{$filename}");
+        $rimg = imagerotate ($img, 90, 0);
+        imagejpeg ($rimg, "{$dirname}/{$filename}");
+      }
+      
+      return MEDIAURL. "/{$folder}/{$filename}";
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  function htimetoseconds ($time)
+  {
+    sscanf ($time, "%d:%d:%d", $hours, $minutes, $seconds);
+    return isset($seconds) ? $hours * 3600 + $minutes * 60 + $seconds : $hours * 60 + $minutes;
   }
 
   //// definitions
