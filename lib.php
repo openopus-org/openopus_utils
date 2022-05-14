@@ -884,12 +884,17 @@
 
     if (file_put_contents ("{$dirname}/{$filename}", file_get_contents ($url)))
     {
-      if ($rotate)
-      {
-        $img = imagecreatefromjpeg ("{$dirname}/{$filename}");
-        $rimg = imagerotate ($img, 90, 0);
-        imagejpeg ($rimg, "{$dirname}/{$filename}");
-      }
+      list ($width, $height) = getimagesize ("{$dirname}/{$filename}");
+      $new_width = 400;
+      $new_height = $height * ($new_width / $width);
+
+      $nimg = imagecreatetruecolor ($new_width, $new_height);
+      $img = imagecreatefromjpeg ("{$dirname}/{$filename}");
+      imagecopyresampled ($nimg, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+
+      if ($rotate) $nimg = imagerotate ($nimg, 90, 0);
+
+      imagejpeg ($nimg, "{$dirname}/{$filename}");
       
       return MEDIAURL. "/{$folder}/{$filename}";
     }
