@@ -216,6 +216,49 @@
     return $api;
   }
 
+  // even simpler curl
+
+  function SimpleCURL ($url, $extraheader)
+  {
+      $ch = curl_init ();
+
+      $header = array();
+      $header[] = 'Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5';
+      $header[] = 'Cache-Control: max-age=0';
+      $header[] = 'Connection: keep-alive';
+      $header[] = 'Keep-Alive: 300';
+      $header[] = 'Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7';
+      $header[] = 'Accept-Language: en-us,en;q=0.5';
+      $header[] = 'Pragma: ';
+
+      if (is_array ($extraheader))
+      {
+          foreach ($extraheader as $k => $h)
+          {
+              $header[] = "{$k}: {$h}";
+          }
+      }
+      
+      curl_setopt ($ch, CURLOPT_URL, $url);
+      curl_setopt ($ch, CURLOPT_RETURNTRANSFER, TRUE);
+      curl_setopt ($ch, CURLOPT_USERAGENT, USERAGENT);
+      curl_setopt ($ch, CURLOPT_HTTPHEADER, $header);
+      curl_setopt ($ch, CURLOPT_AUTOREFERER, true);
+      curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt ($ch, CURLOPT_FOLLOWLOCATION, 1);
+      curl_setopt ($ch, CURLOPT_ENCODING, '');
+      curl_setopt ($ch, CURLOPT_TIMEOUT, 200);
+      //curl_setopt ($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
+      curl_setopt ($ch, CURLOPT_VERBOSE, FALSE);
+      //curl_setopt ($ch, CURLOPT_STDERR, $fp);
+
+      $api = curl_exec ($ch);
+
+      curl_close ($ch);
+
+      return $api;
+  }
+
   // api return mode
 
   function apireturn ($apireturn)
@@ -889,7 +932,16 @@
       $new_height = $height * ($new_width / $width);
 
       $nimg = imagecreatetruecolor ($new_width, $new_height);
-      $img = imagecreatefromjpeg ("{$dirname}/{$filename}");
+
+      if (stristr ($url, ".jpg"))
+      {
+        $img = imagecreatefromjpeg ("{$dirname}/{$filename}");
+      }
+      elseif (stristr ($url, ".png"))
+      {
+        $img = imagecreatefrompng ("{$dirname}/{$filename}");
+      }
+      
       imagecopyresampled ($nimg, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 
       if ($rotate) $nimg = imagerotate ($nimg, 90, 0);
