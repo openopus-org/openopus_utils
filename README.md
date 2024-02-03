@@ -1,7 +1,7 @@
 # openopus_utils
 [Open Opus](https://openopus.org) is a free and open source API to classical music metadata.
 
-This is a library of simple PHP functions used by the main Open Opus API and by the players [Concertmaster](https://getconcertmaster.com) and [Concertino](https://getconcertino.com), which rely on the Open Opus data to improve Spotify and Apple Music, respectively.
+This is a library of simple PHP functions used by the main Open Opus API and by the player [Concertmaster](https://getconcertmaster.com), which rely on the Open Opus data to improve Spotify.
 
 ## Usage
 
