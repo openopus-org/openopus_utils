@@ -10,4 +10,4 @@ There is a [wiki](https://wiki.openopus.org/wiki/Using_the_Open_Opus_Utils_Libra
 ## How to build
 
 1. Clone the git repository (for example, in the `/var/www/` folder)
-2. Change the `UTILIB` constant in the `lib/inc.php` file of each API ([Open Opus](https://github.com/openopus-org/openopus_api), [Concertmaster](https://github.com/openopus-org/concertmaster_api) and [Concertino](https://github.com/openopus-org/concertino_api)), to reflect the actual folder
+2. Change the `UTILIB` constant in the `lib/inc.php` file of each API ([Open Opus](https://github.com/openopus-org/openopus_api) and [Concertmaster](https://github.com/openopus-org/concertmaster_api), to reflect the actual folder
